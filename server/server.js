@@ -8,6 +8,7 @@ const productsRoutes = require('./routes/productsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const customersRoutes = require('./routes/customersRoutes');
 const salesRoutes = require('./routes/salesRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/api/products', productsRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/customers', customersRoutes);
 app.use('/api/sales', salesRoutes);
+app.use('/api/categories', categoryRoutes);
 
 app.get('/', (req, res) => {
   res.send('¡API de Allence funcionando perfectamente!');
