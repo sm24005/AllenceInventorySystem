@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 const createAdmin = async () => {
-    try {s
+    try {
         const count = await User.estimatedDocumentCount();
         if (count > 0) return;
 

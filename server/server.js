@@ -6,6 +6,8 @@ const { createAdmin } = require('./libs/initialSetup');
 
 const productsRoutes = require('./routes/productsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
+const customersRoutes = require('./routes/customersRoutes');
+const salesRoutes = require('./routes/salesRoutes');
 
 const app = express();
 
@@ -13,7 +15,9 @@ app.use(cors());
 app.use(express.json()); 
 
 app.use('/api/products', productsRoutes);
-app.use('/api/users', usersRoutes); 
+app.use('/api/users', usersRoutes);
+app.use('/api/customers', customersRoutes);
+app.use('/api/sales', salesRoutes);
 
 app.get('/', (req, res) => {
   res.send('¡API de Allence funcionando perfectamente!');
