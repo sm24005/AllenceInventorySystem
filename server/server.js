@@ -9,6 +9,7 @@ const usersRoutes = require('./routes/usersRoutes');
 const customersRoutes = require('./routes/customersRoutes');
 const salesRoutes = require('./routes/salesRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const supplierRoutes = require('./routes/supplierRoutes');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/api/users', usersRoutes);
 app.use('/api/customers', customersRoutes);
 app.use('/api/sales', salesRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/suppliers', supplierRoutes);
 
 app.get('/', (req, res) => {
   res.send('¡API de Allence funcionando perfectamente!');
