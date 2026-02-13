@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors'); 
 const connectDB = require('./config/db');
-const { createAdmin } = require('./libs/initialSetup');
+const seedUsers = require('./utils/seeder');
 
 const productsRoutes = require('./routes/productsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
-    createAdmin(); 
+    seedUsers(); 
     
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en el puerto ${PORT}`);
