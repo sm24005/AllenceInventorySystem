@@ -14,7 +14,18 @@ exports.login = async (req, res) => {
         const payload = { id: user._id, role: user.role, email: user.email };
         const token = jwt.sign(payload, process.env.JWT_SECRET || 'secret_key', { expiresIn: '8h' });
 
-        res.json({ success: true, token, message: "Welcome " + user.firstName });
+        res.json({ 
+            success: true, 
+            token, 
+            user: {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                role: user.role
+            },
+            message: "Welcome " + user.firstName 
+        });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

@@ -43,16 +43,19 @@ const LoginUserPage = () => {
       } else {
         const response = await loginUser(credentials);
         localStorage.setItem('token', response.data.token);
-        // Guardamos user si viene en la respuesta
-        if (response.data.user || response.data.usuario) {
-             const userData = response.data.user || response.data.usuario;
+        
+        // Guardamos el usuario completo para tener el nombre disponible
+        // El backend puede devolver 'user' o 'usuario' dependiendo de tu controller
+        const userData = response.data.user || response.data.usuario;
+        if (userData) {
              localStorage.setItem('user', JSON.stringify(userData));
         }
+        
         navigate('/'); 
       }
     } catch (error) {
       console.log(error);
-      let serverMessage = error.response?.data?.message || error.response?.data?.msg || 'Error de conexión con el servidor';
+      let serverMessage = error.response?.data?.message || error.response?.data?.msg || 'Connection error';
       setErrors([{ campo: 'SERVER', mensaje: serverMessage }]);
     } finally {
       setIsLoading(false);
@@ -66,7 +69,7 @@ const LoginUserPage = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #1565c0 0%, #42a5f5 100%)', // DEGRADADO AZUL ALLENCE
+        background: 'linear-gradient(135deg, #1565c0 0%, #42a5f5 100%)',
       }}
     >
       <Container maxWidth="xs">
@@ -80,7 +83,6 @@ const LoginUserPage = () => {
             overflow: 'hidden'
           }}
         >
-          {/* Cabecera del Login */}
           <Box sx={{ width: '100%', bgcolor: 'white', p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Avatar sx={{ m: 1, bgcolor: 'primary.main', width: 60, height: 60 }}>
               <LockOutlinedIcon fontSize="large" />
@@ -89,18 +91,17 @@ const LoginUserPage = () => {
               Allence
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Bienvenido de nuevo
+              Welcome back
             </Typography>
           </Box>
 
-          {/* Formulario */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ p: 4, width: '100%', bgcolor: '#fafafa' }}>
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
-              label="Correo Electrónico"
+              label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
@@ -120,7 +121,7 @@ const LoginUserPage = () => {
               required
               fullWidth
               name="password"
-              label="Contraseña"
+              label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -148,7 +149,7 @@ const LoginUserPage = () => {
               disabled={isLoading}
               sx={{ mt: 3, mb: 2, py: 1.5, fontSize: '1rem', boxShadow: 3 }}
             >
-              {isLoading ? <CircularProgress size={24} color="inherit" /> : 'INICIAR SESIÓN'}
+              {isLoading ? <CircularProgress size={24} color="inherit" /> : 'LOGIN'}
             </Button>
             
             <Typography variant="caption" display="block" align="center" color="text.disabled" sx={{ mt: 2 }}>
