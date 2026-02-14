@@ -1,20 +1,39 @@
 const mongoose = require('mongoose');
 
-const saleItemSchema = new mongoose.Schema({
-    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
-    quantity: { type: Number, required: true, min: [1, 'Quantity must be at least 1'] },
-    price: { type: Number, required: true }
-}, { _id: false });
-
 const saleSchema = new mongoose.Schema({
-    customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: true },
-    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    items: [saleItemSchema],
-    totalAmount: { type: Number, required: true, default: 0 },
-    status: { 
+    invoiceNumber: { 
         type: String, 
-        enum: { values: ['completed', 'cancelled'], message: '{VALUE} is not a valid status' },
-        default: 'completed' 
+        unique: true,
+        required: true 
+    },
+    customer: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Customer',
+        required: true 
+    },
+    user: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', // El vendedor que hizo la venta
+        required: true 
+    },
+    items: [{
+        product: { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Product',
+            required: true 
+        },
+        productName: String, // Guardamos el nombre por si el producto se borra después
+        quantity: { type: Number, required: true, min: 1 },
+        price: { type: Number, required: true } // Precio al momento de la venta
+    }],
+    total: { 
+        type: Number, 
+        required: true 
+    },
+    status: {
+        type: String,
+        enum: ['completed', 'cancelled'],
+        default: 'completed'
     }
 }, { timestamps: true });
 
