@@ -2,7 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import LoginUserPage from './pages/users/LoginUserPage';
+import ProductsPage from './pages/products/ProductsPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import CreateProductPage from './pages/products/CreateProductPage';
 
 function App() {
   return (
@@ -15,7 +17,8 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={['ADMIN', 'MANAGER', 'SELLER']} />}>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                {/* Aquí iremos agregando ProductsPage, CustomersPage, etc. */}
+                <Route path="products" element={<ProductsPage />} />
+                <Route path="products/create" element={<CreateProductPage />} />
             </Route>
         </Route>
         
