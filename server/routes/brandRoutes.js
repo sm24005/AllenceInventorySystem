@@ -6,7 +6,6 @@ const requireRole = require('../middlewares/roleMiddleware');
 
 router.get('/', verifyToken, brandController.getBrands);
 router.post('/', verifyToken, requireRole('ADMIN', 'MANAGER'), brandController.createBrand);
-router.put('/:id', verifyToken, requireRole('ADMIN', 'MANAGER'), brandController.updateBrand);
-router.delete('/:id', verifyToken, requireRole('ADMIN'), brandController.deleteBrand);
+router.delete('/:id', verifyToken, requireRole('ADMIN', 'MANAGER'), brandController.deleteBrand);
 
 module.exports = router;

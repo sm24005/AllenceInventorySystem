@@ -7,7 +7,7 @@ const brandSchema = new mongoose.Schema({
         unique: [true, 'Brand name already exists'],
         trim: true
     },
-    description: { type: String }
+    description: { type: String, trim: true }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Brand', brandSchema);

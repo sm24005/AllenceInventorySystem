@@ -7,7 +7,7 @@ const categorySchema = new mongoose.Schema({
         unique: [true, 'Category name already exists'],
         trim: true
     },
-    description: { type: String }
+    description: { type: String, trim: true }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Category', categorySchema);

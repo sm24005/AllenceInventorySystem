@@ -1,43 +1,48 @@
-import { jwtDecode } from "jwt-decode";
+// client/src/utils/auth.js
 
-export const getAuthUser = () => {
-    // 1. Intentamos leer el usuario completo guardado en el Login
-    const userStr = localStorage.getItem('user');
-    if (userStr) {
-        try {
-            return JSON.parse(userStr); // ¡Aquí sí viene firstName y lastName!
-        } catch (e) {
-            console.error("Error parsing user from localStorage", e);
-        }
-    }
-
-    // 2. Si no hay usuario guardado, decodificamos el token (Respaldo)
-    const token = localStorage.getItem('token');
-    if (!token) return null;
-    
-    try {
-        const decoded = jwtDecode(token);
-        return decoded; 
-    } catch (error) {
-        return null;
-    }
+// Guardar el token al iniciar sesión
+export const setToken = (token) => {
+    localStorage.setItem('token', token);
 };
 
+// Obtener el token para las peticiones
+export const getToken = () => {
+    return localStorage.getItem('token');
+};
+
+// Borrar el token (para logout interno)
+export const removeToken = () => {
+    localStorage.removeItem('token');
+};
+
+export const logout = () => {
+    removeToken();
+    // Opcional: Redirigir o limpiar otros datos si fuera necesario
+    window.location.href = '/users/login';
+};
+
+// Verificar si está logueado
 export const isAuthenticated = () => {
-    const token = localStorage.getItem('token');
-    if (!token) return false;
-    
+    const token = getToken();
+    return !!token;
+};
+
+// Decodificar el usuario desde el token (sin librerías externas)
+export const getAuthUser = () => {
+    const token = getToken();
+    if (!token) return null;
+
     try {
-        const decoded = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
-        
-        if (decoded.exp < currentTime) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            return false;
-        }
-        return true;
+        // Decodificación manual del JWT (Payload está en la parte 2)
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
     } catch (error) {
-        return false;
+        console.error("Error decoding token:", error);
+        return null;
     }
 };
