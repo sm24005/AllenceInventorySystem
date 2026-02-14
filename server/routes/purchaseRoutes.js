@@ -4,7 +4,8 @@ const purchaseController = require('../controllers/purchaseController');
 const verifyToken = require('../middlewares/authMiddleware');
 const requireRole = require('../middlewares/roleMiddleware');
 
-router.get('/', verifyToken, requireRole('ADMIN', 'MANAGER'), purchaseController.getPurchases);
+// Solo Admin y Manager deberían poder registrar compras (entradas de inventario)
+router.get('/', verifyToken, purchaseController.getPurchases);
 router.post('/', verifyToken, requireRole('ADMIN', 'MANAGER'), purchaseController.createPurchase);
 
 module.exports = router;

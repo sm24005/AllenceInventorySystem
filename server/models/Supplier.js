@@ -1,20 +1,12 @@
 const mongoose = require('mongoose');
 
 const supplierSchema = new mongoose.Schema({
-    name: { 
-        type: String, 
-        required: [true, 'Supplier name is required'],
-        trim: true 
-    },
-    contactName: { type: String }, // Persona de contacto
-    email: { 
-        type: String, 
-        required: [true, 'Email is required'],
-        unique: true,
-        match: [/.+\@.+\..+/, 'Please enter a valid email address']
-    },
-    phone: { type: String, required: [true, 'Phone number is required'] },
-    address: { type: String }
+    name: { type: String, required: true, trim: true },
+    contactName: { type: String, trim: true },
+    email: { type: String, trim: true, lowercase: true },
+    phone: { type: String, trim: true },
+    address: { type: String },
+    status: { type: String, default: 'active' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Supplier', supplierSchema);

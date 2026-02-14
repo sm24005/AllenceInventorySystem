@@ -4,6 +4,10 @@ import Home from './pages/Home';
 import LoginUserPage from './pages/users/LoginUserPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
+import SuppliersPage from './pages/purchases/SuppliersPage';
+import PurchasesPage from './pages/purchases/PurchasesPage';
+import CreatePurchasePage from './pages/purchases/CreatePurchasePage';
+
 // Productos
 import ProductsPage from './pages/products/ProductsPage';
 import CreateProductPage from './pages/products/CreateProductPage';
@@ -54,9 +58,11 @@ function App() {
                     <Route path="users" element={<UsersPage />} />
                     <Route path="users/create" element={<CreateUserPage />} />
                     <Route path="users/edit/:id" element={<EditUserPage />} />
+                    <Route path="suppliers" element={<SuppliersPage />} />
+                    <Route path="purchases" element={<PurchasesPage />} />
+                    <Route path="purchases/create" element={<CreatePurchasePage />} />
                 </Route>
                 
-
             </Route>
         </Route>
         
