@@ -5,6 +5,7 @@ import LoginUserPage from './pages/users/LoginUserPage';
 import ProductsPage from './pages/products/ProductsPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateProductPage from './pages/products/CreateProductPage';
+import EditProductPage from './pages/products/EditProductPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="products" element={<ProductsPage />} />
                 <Route path="products/create" element={<CreateProductPage />} />
+                <Route path="products/edit/:id" element={<EditProductPage />} />
             </Route>
         </Route>
         
