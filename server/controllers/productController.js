@@ -34,8 +34,7 @@ exports.getProducts = async (req, res) => {
         if (sku) query.sku = { $regex: sku, $options: 'i' };
 
         const products = await Product.find(query)
-        .populate('category', 'name') // Para que se vea el nombre de la categoría
-        .populate('brand', 'name')
+        
         .sort({ createdAt: -1 });
         res.json({ success: true, count: products.length, products });
     } catch (error) {
@@ -46,8 +45,7 @@ exports.getProducts = async (req, res) => {
 exports.getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
-        .populate('category', 'name') // Para que se vea el nombre de la categoría
-        .populate('brand', 'name');
+        
         if (!product) {
             return res.status(404).json({ success: false, message: 'Product not found' });
         }

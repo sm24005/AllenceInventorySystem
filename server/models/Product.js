@@ -8,8 +8,8 @@ const productSchema = new mongoose.Schema({
         required: [true, 'SKU is required'],
         unique: [true, 'SKU already exists'] 
     },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
-    brand: { type: mongoose.Schema.Types.ObjectId, ref: 'Brand' },
+    category: { type: String, default: 'General' }, 
+    brand: { type: String, default: 'Generic' },
     price: { type: Number, required: true, default: 0 },
     stock: { type: Number, required: true, default: 0 }
 }, { timestamps: true });
