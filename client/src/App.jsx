@@ -9,6 +9,8 @@ import EditProductPage from './pages/products/EditProductPage';
 import CustomersPage from './pages/customers/CustomersPage';
 import CreateCustomerPage from './pages/customers/CreateCustomerPage';
 import EditCustomerPage from './pages/customers/EditCustomerPage';
+import SalesPage from './pages/sales/SalesPage';
+import CreateSalePage from './pages/sales/CreateSalePage';
 
 function App() {
   return (
@@ -30,6 +32,11 @@ function App() {
                 <Route path="customers" element={<CustomersPage />} />
                 <Route path="customers/create" element={<CreateCustomerPage />} />
                 <Route path="customers/edit/:id" element={<EditCustomerPage />} />
+
+                {/* Ventas */}
+                <Route path="sales" element={<SalesPage />} />
+                <Route path="sales/create" element={<CreateSalePage />} />
+
             </Route>
         </Route>
         
