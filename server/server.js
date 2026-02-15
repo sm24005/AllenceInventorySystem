@@ -1,8 +1,10 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
-const cors = require('cors'); 
 const connectDB = require('./config/db');
 const seedUsers = require('./utils/seeder');
+
+// Rutas
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const productsRoutes = require('./routes/productsRoutes');
@@ -16,9 +18,17 @@ const returnRoutes = require('./routes/returnRoutes');
 
 const app = express();
 
-app.use(cors()); 
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://allence-erp.vercel.app"
+    ],
+    credentials: true
+}));
+
 app.use(express.json()); 
 
+// Rutas de la API
 app.use('/api/users', usersRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/customers', customerRoutes);
