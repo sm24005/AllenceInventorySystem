@@ -15,8 +15,9 @@ import {
     Receipt as PurchaseIcon,
     Group as UserIcon,
     Logout as LogoutIcon,
-    Category as CategoryIcon, // <--- IMPORTAR
-    Label as BrandIcon        // <--- IMPORTAR
+    Category as CategoryIcon,
+    Label as BrandIcon,
+    RemoveShoppingCart as ReturnIcon
 } from '@mui/icons-material';
 
 import { logout, getAuthUser } from '../utils/auth';
@@ -65,6 +66,13 @@ const Layout = () => {
                     <ListItemButton selected={location.pathname.includes('/sales')} onClick={() => navigate('/sales')}>
                         <ListItemIcon><SaleIcon /></ListItemIcon>
                         <ListItemText primary="Sales" />
+                    </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                    <ListItemButton selected={location.pathname.includes('/returns')} onClick={() => navigate('/returns')}>
+                        <ListItemIcon><ReturnIcon /></ListItemIcon>
+                        <ListItemText primary="Returns" />
                     </ListItemButton>
                 </ListItem>
 

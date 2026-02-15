@@ -8,6 +8,9 @@ import SuppliersPage from './pages/purchases/SuppliersPage';
 import PurchasesPage from './pages/purchases/PurchasesPage';
 import CreatePurchasePage from './pages/purchases/CreatePurchasePage';
 
+import ReturnsPage from './pages/returns/ReturnsPage';
+import CreateReturnPage from './pages/returns/CreateReturnPage';
+
 import CategoriesPage from './pages/inventory/CategoriesPage';
 import BrandsPage from './pages/inventory/BrandsPage';
 
@@ -67,6 +70,9 @@ function App() {
                     {/* --- GESTIÓN DE INVENTARIO --- */}
                     <Route path="categories" element={<CategoriesPage />} />
                     <Route path="brands" element={<BrandsPage />} />
+                    {/* DEVOLUCIONES */}
+                    <Route path="returns" element={<ReturnsPage />} />
+                    <Route path="returns/create" element={<CreateReturnPage />} />
                 </Route>
                 
             </Route>
