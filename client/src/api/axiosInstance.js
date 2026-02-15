@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { getToken } from '../utils/auth';
 
-// Usamos la variable de entorno o un valor por defecto si no existe
-const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Usar variable de entorno VITE_API_URL, si no existe, usar localhost
+const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const axiosInstance = axios.create({ 
-    baseURL: apiUrl,
+const api = axios.create({
+    baseURL: baseURL,
+    withCredentials: true,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json'
