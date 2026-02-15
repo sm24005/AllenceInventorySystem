@@ -4,6 +4,7 @@ import { getToken } from '../utils/auth';
 // Usar variable de entorno VITE_API_URL, si no existe, usar localhost
 const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+// 1. Definimos la variable como "api"
 const api = axios.create({
     baseURL: baseURL,
     withCredentials: true,
@@ -13,9 +14,10 @@ const api = axios.create({
     },
 });
 
-// Interceptor: Inyecta el token automáticamente en cada petición
-axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
+// 2. Usamos "api"
+api.interceptors.request.use((config) => {
+    // Usamos la función getToken
+    const token = getToken(); 
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -24,4 +26,5 @@ axiosInstance.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
-export default axiosInstance;
+// 3. Exportamos "api"
+export default api;
